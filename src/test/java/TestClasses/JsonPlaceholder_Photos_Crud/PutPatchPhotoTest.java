@@ -1,6 +1,7 @@
 package TestClasses.JsonPlaceholder_Photos_Crud;
 
 import TestClasses.MainTest;
+import TestClasses.UrlAndEndpoints;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -8,8 +9,6 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static TestClasses.UrlAndEndpoints.BASE_URL;
-import static TestClasses.UrlAndEndpoints.PHOTOS;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,7 +36,7 @@ public class PutPatchPhotoTest extends MainTest {
                 .body(photo.toString())
                 .pathParam("photoId", fakeId)
                 .when()
-                .put(BASE_URL + PHOTOS + "/{photoId}")
+                .put(UrlAndEndpoints.getBaseUrl() + UrlAndEndpoints.getPHOTOS() + "/{photoId}")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
@@ -63,7 +62,7 @@ public class PutPatchPhotoTest extends MainTest {
                 .body(photo.toString())
                 .pathParam("photoId", fakeId)
                 .when()
-                .put(BASE_URL + PHOTOS + "/{photoId}")
+                .put(UrlAndEndpoints.getBaseUrl() + UrlAndEndpoints.getPHOTOS() + "/{photoId}")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
