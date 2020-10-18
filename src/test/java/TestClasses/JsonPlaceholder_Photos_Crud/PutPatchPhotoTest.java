@@ -1,32 +1,19 @@
-package JsonPlaceholder_Photos_Crud;
+package TestClasses.JsonPlaceholder_Photos_Crud;
 
-import com.github.javafaker.Faker;
+import TestClasses.MainTest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-
+import static TestClasses.UrlAndEndpoints.BASE_URL;
+import static TestClasses.UrlAndEndpoints.PHOTOS;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PutPatchPhotoTest {
-
-    private static Faker faker;
-    private String fakeTitle;
-    private String fakeUrl;
-    private String fakeThumbnailUrl;
-    private Integer fakeAlbumId;
-    private Integer fakeId;
-
-    @BeforeAll
-    public static void beforeAll() {
-        faker = new Faker();
-    }
+public class PutPatchPhotoTest extends MainTest {
 
     @BeforeEach
     public void beforeEach() {
@@ -36,7 +23,6 @@ public class PutPatchPhotoTest {
             fakeAlbumId = faker.number().numberBetween(1, 100);
             fakeId = faker.number().numberBetween(1, 5000);
     }
-
 
     @Test
     public void putPhotoTest() {
@@ -51,7 +37,7 @@ public class PutPatchPhotoTest {
                 .body(photo.toString())
                 .pathParam("photoId", fakeId)
                 .when()
-                .put(Address.getAddress() + "/{photoId}")
+                .put(BASE_URL + PHOTOS + "/{photoId}")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
@@ -77,7 +63,7 @@ public class PutPatchPhotoTest {
                 .body(photo.toString())
                 .pathParam("photoId", fakeId)
                 .when()
-                .put(Address.getAddress() + "/{photoId}")
+                .put(BASE_URL + PHOTOS + "/{photoId}")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()

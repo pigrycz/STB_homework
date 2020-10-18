@@ -1,29 +1,19 @@
-package JsonPlaceholder_Photos_Crud;
+package TestClasses.JsonPlaceholder_Photos_Crud;
 
-import com.github.javafaker.Faker;
+import TestClasses.MainTest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static TestClasses.UrlAndEndpoints.BASE_URL;
+import static TestClasses.UrlAndEndpoints.PHOTOS;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PostPhotoTest {
-
-    private static Faker faker;
-    private String fakeTitle;
-    private String fakeUrl;
-    private String fakeThumbnailUrl;
-    private Integer fakeAlbumId;
-
-    @BeforeAll
-    public static void beforeAll(){
-        faker = new Faker();
-    }
+public class PostPhotoTest extends MainTest {
 
     @BeforeEach
     public void beforeEach(){
@@ -45,7 +35,7 @@ public class PostPhotoTest {
                 .contentType("application/json")
                 .body(photo.toString())
                 .when()
-                .post(Address.getAddress())
+                .post(BASE_URL + PHOTOS)
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
                 .extract()
