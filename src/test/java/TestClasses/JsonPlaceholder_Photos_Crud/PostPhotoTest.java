@@ -1,7 +1,6 @@
 package TestClasses.JsonPlaceholder_Photos_Crud;
 
 import TestClasses.MainTest;
-import TestClasses.UrlAndEndpoints;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -9,6 +8,8 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static TestClasses.UrlAndEndpoints.BASE_URL;
+import static TestClasses.UrlAndEndpoints.PHOTOS;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +35,7 @@ public class PostPhotoTest extends MainTest {
                 .contentType("application/json")
                 .body(photo.toString())
                 .when()
-                .post(UrlAndEndpoints.getBaseUrl() + UrlAndEndpoints.getPHOTOS())
+                .post(BASE_URL + PHOTOS)
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
                 .extract()

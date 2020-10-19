@@ -1,6 +1,5 @@
 package TestClasses.EmailPlEnding;
 
-import TestClasses.UrlAndEndpoints;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -10,16 +9,18 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static TestClasses.UrlAndEndpoints.BASE_URL;
+import static TestClasses.UrlAndEndpoints.USERS;
 import static io.restassured.RestAssured.given;
 
 public class EmailPlEndingTest {
-    private CharSequence suffix = ".pl";
+    private String suffix = ".pl";
 
     @Test
     public void emailPlEnding(){
         Response response = given()
                 .when()
-                .get(UrlAndEndpoints.getBaseUrl() + UrlAndEndpoints.getUSERS())
+                .get(BASE_URL + USERS)
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
@@ -29,7 +30,7 @@ public class EmailPlEndingTest {
 
         List<String> emails = json.getList("email");
 
-        List<String> plEmails = emails.stream().filter(email -> email.contains(suffix)).collect(Collectors.toList());
+        List<String> plEmails = emails.stream().filter(email -> email.endsWith(suffix)).collect(Collectors.toList());
 
         Assertions.assertEquals(plEmails.size(), 0);
     }
